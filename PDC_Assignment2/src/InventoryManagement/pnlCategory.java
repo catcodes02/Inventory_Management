@@ -1,14 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package InventoryManagement;
 
-/**
- *
- * @author cpypr
- */
+import javax.swing.JOptionPane;
+
 public class pnlCategory extends javax.swing.JPanel {
 
     /**
@@ -16,6 +9,30 @@ public class pnlCategory extends javax.swing.JPanel {
      */
     public pnlCategory() {
         initComponents();
+
+        //Set visibilities
+        defaultVisibility();
+    }
+
+    public void setCategoryLabel(String name) {
+        lblInventory.setText(name + " Stock:");
+    }
+
+    public void defaultVisibility() {
+        pnlButtons.setVisible(true);
+        pnlEditQuantity.setVisible(false);
+    }
+
+    private boolean checkItemSelected() {
+        boolean itemSelected = false;
+
+        if (lstInventory.getSelectedValue() != null) {
+            itemSelected = true;
+        } else { //item not selected
+            JOptionPane.showMessageDialog(null, "Please select an item", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+
+        return itemSelected;
     }
 
     /**
@@ -27,16 +44,27 @@ public class pnlCategory extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        lblInventory = new javax.swing.JLabel();
         scrCategories = new javax.swing.JScrollPane();
         lstInventory = new javax.swing.JList<>();
+        pnlButtons = new javax.swing.JPanel();
         btnAdd = new javax.swing.JButton();
         btnEditQuantity = new javax.swing.JButton();
         btnRemove = new javax.swing.JButton();
-        lblInventory = new javax.swing.JLabel();
+        pnlEditQuantity = new javax.swing.JPanel();
+        spnQuantity = new javax.swing.JSpinner();
+        btnConfirm = new javax.swing.JButton();
+        btnCancel = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(175, 199, 249));
         setMinimumSize(new java.awt.Dimension(400, 280));
         setPreferredSize(new java.awt.Dimension(400, 280));
         setLayout(null);
+
+        lblInventory.setFont(new java.awt.Font("Times New Roman", 0, 20)); // NOI18N
+        lblInventory.setText("(Category) Stock:");
+        add(lblInventory);
+        lblInventory.setBounds(10, 20, 380, 30);
 
         scrCategories.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
 
@@ -54,7 +82,9 @@ public class pnlCategory extends javax.swing.JPanel {
         scrCategories.setViewportView(lstInventory);
 
         add(scrCategories);
-        scrCategories.setBounds(10, 60, 200, 180);
+        scrCategories.setBounds(10, 60, 180, 180);
+
+        pnlButtons.setBackground(new java.awt.Color(175, 199, 249));
 
         btnAdd.setBackground(new java.awt.Color(221, 221, 221));
         btnAdd.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
@@ -68,8 +98,6 @@ public class pnlCategory extends javax.swing.JPanel {
                 btnAddActionPerformed(evt);
             }
         });
-        add(btnAdd);
-        btnAdd.setBounds(240, 80, 140, 40);
 
         btnEditQuantity.setBackground(new java.awt.Color(221, 221, 221));
         btnEditQuantity.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
@@ -83,8 +111,6 @@ public class pnlCategory extends javax.swing.JPanel {
                 btnEditQuantityActionPerformed(evt);
             }
         });
-        add(btnEditQuantity);
-        btnEditQuantity.setBounds(240, 130, 140, 40);
 
         btnRemove.setBackground(new java.awt.Color(221, 221, 221));
         btnRemove.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
@@ -98,13 +124,96 @@ public class pnlCategory extends javax.swing.JPanel {
                 btnRemoveActionPerformed(evt);
             }
         });
-        add(btnRemove);
-        btnRemove.setBounds(240, 180, 140, 40);
 
-        lblInventory.setFont(new java.awt.Font("Times New Roman", 0, 20)); // NOI18N
-        lblInventory.setText("(Category) Stock:");
-        add(lblInventory);
-        lblInventory.setBounds(10, 20, 380, 30);
+        javax.swing.GroupLayout pnlButtonsLayout = new javax.swing.GroupLayout(pnlButtons);
+        pnlButtons.setLayout(pnlButtonsLayout);
+        pnlButtonsLayout.setHorizontalGroup(
+            pnlButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlButtonsLayout.createSequentialGroup()
+                .addGap(0, 35, Short.MAX_VALUE)
+                .addGroup(pnlButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEditQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 35, Short.MAX_VALUE))
+        );
+        pnlButtonsLayout.setVerticalGroup(
+            pnlButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlButtonsLayout.createSequentialGroup()
+                .addGap(0, 20, Short.MAX_VALUE)
+                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(btnEditQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 20, Short.MAX_VALUE))
+        );
+
+        add(pnlButtons);
+        pnlButtons.setBounds(190, 60, 210, 180);
+
+        pnlEditQuantity.setBackground(new java.awt.Color(175, 199, 249));
+
+        spnQuantity.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+
+        btnConfirm.setBackground(new java.awt.Color(221, 221, 221));
+        btnConfirm.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        btnConfirm.setText("CONFIRM");
+        btnConfirm.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnConfirm.setMaximumSize(new java.awt.Dimension(63, 23));
+        btnConfirm.setMinimumSize(new java.awt.Dimension(63, 23));
+        btnConfirm.setPreferredSize(new java.awt.Dimension(63, 23));
+        btnConfirm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConfirmActionPerformed(evt);
+            }
+        });
+
+        btnCancel.setBackground(new java.awt.Color(221, 221, 221));
+        btnCancel.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        btnCancel.setText("CANCEL");
+        btnCancel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnCancel.setMaximumSize(new java.awt.Dimension(63, 23));
+        btnCancel.setMinimumSize(new java.awt.Dimension(63, 23));
+        btnCancel.setPreferredSize(new java.awt.Dimension(63, 23));
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnlEditQuantityLayout = new javax.swing.GroupLayout(pnlEditQuantity);
+        pnlEditQuantity.setLayout(pnlEditQuantityLayout);
+        pnlEditQuantityLayout.setHorizontalGroup(
+            pnlEditQuantityLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 210, Short.MAX_VALUE)
+            .addGroup(pnlEditQuantityLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlEditQuantityLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addGroup(pnlEditQuantityLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(pnlEditQuantityLayout.createSequentialGroup()
+                            .addGap(20, 20, 20)
+                            .addComponent(spnQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        pnlEditQuantityLayout.setVerticalGroup(
+            pnlEditQuantityLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 180, Short.MAX_VALUE)
+            .addGroup(pnlEditQuantityLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlEditQuantityLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(spnQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(20, 20, 20)
+                    .addComponent(btnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(10, 10, 10)
+                    .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+
+        add(pnlEditQuantity);
+        pnlEditQuantity.setBounds(190, 60, 210, 180);
     }// </editor-fold>//GEN-END:initComponents
 
     private void lstInventoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstInventoryMouseClicked
@@ -117,19 +226,50 @@ public class pnlCategory extends javax.swing.JPanel {
 
     private void btnEditQuantityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditQuantityActionPerformed
         System.out.println("Edit Quantity Button Pressed!");
+
+        if (checkItemSelected()) { //error checking
+            pnlButtons.setVisible(false);
+            pnlEditQuantity.setVisible(true);
+        }
     }//GEN-LAST:event_btnEditQuantityActionPerformed
 
     private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
         System.out.println("Remove Button Pressed!");
+
+        if (checkItemSelected()) { //error checking
+            int confirm = JOptionPane.showConfirmDialog(null, "Remove " + lstInventory.getSelectedValue(), "CONFIRMATION", JOptionPane.YES_NO_OPTION);
+            if (confirm == 0) {
+                System.out.println("yes");
+            } else {
+                System.out.println("no");
+            }
+        }
     }//GEN-LAST:event_btnRemoveActionPerformed
+
+    private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
+        System.out.println("confirmed quantity change");
+
+        /*send info to controller
+         */
+        defaultVisibility();
+    }//GEN-LAST:event_btnConfirmActionPerformed
+
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+        defaultVisibility();
+    }//GEN-LAST:event_btnCancelActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
+    private javax.swing.JButton btnCancel;
+    private javax.swing.JButton btnConfirm;
     private javax.swing.JButton btnEditQuantity;
     private javax.swing.JButton btnRemove;
     private javax.swing.JLabel lblInventory;
     private javax.swing.JList<String> lstInventory;
+    private javax.swing.JPanel pnlButtons;
+    private javax.swing.JPanel pnlEditQuantity;
     private javax.swing.JScrollPane scrCategories;
+    private javax.swing.JSpinner spnQuantity;
     // End of variables declaration//GEN-END:variables
 }

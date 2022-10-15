@@ -10,18 +10,23 @@ public class InventoryManagementView extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
 
-        //Setting visibility
-        setHomeVisibility();
+        //Set visibilities
+        homeVisibility();
+
+        //background colour
+        this.getContentPane().setBackground(new java.awt.Color(175, 199, 249));
     }
-    
-    public void setHomeVisibility(){
+
+    public void homeVisibility() {
         pnlHome.setVisible(true);
         pnlCategory.setVisible(false);
         btnReturn.setVisible(false);
+        lstCategories.clearSelection();
     }
-    
-    public void SetCategoryVisibility(){
+
+    public void categoryVisibility() {
         pnlHome.setVisible(false);
+        pnlCategory.defaultVisibility();
         pnlCategory.setVisible(true);
         btnReturn.setVisible(true);
     }
@@ -49,7 +54,7 @@ public class InventoryManagementView extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Inventory Management");
-        setBackground(new java.awt.Color(229, 229, 254));
+        setAutoRequestFocus(false);
         setMinimumSize(new java.awt.Dimension(410, 430));
         setPreferredSize(new java.awt.Dimension(410, 430));
         setResizable(false);
@@ -85,6 +90,7 @@ public class InventoryManagementView extends javax.swing.JFrame {
         getContentPane().add(pnlTitle);
         pnlTitle.setBounds(0, 0, 570, 80);
 
+        pnlHome.setBackground(new java.awt.Color(175, 199, 249));
         pnlHome.setLayout(null);
 
         lblCategories.setFont(new java.awt.Font("Times New Roman", 0, 20)); // NOI18N
@@ -141,13 +147,12 @@ public class InventoryManagementView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnActionPerformed
-        setHomeVisibility();
+        homeVisibility();
     }//GEN-LAST:event_btnReturnActionPerformed
 
     private void lstCategoriesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstCategoriesMouseClicked
-        System.out.println(lstCategories.getSelectedValue());
-
-        SetCategoryVisibility();
+        pnlCategory.setCategoryLabel(lstCategories.getSelectedValue());
+        categoryVisibility();
     }//GEN-LAST:event_lstCategoriesMouseClicked
 
     private void btnQuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitActionPerformed

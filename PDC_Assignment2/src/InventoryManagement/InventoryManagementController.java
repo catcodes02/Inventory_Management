@@ -9,13 +9,13 @@ public class InventoryManagementController {
         this.model = new InventoryManagementModel();
         this.view = new InventoryManagementView();
         
-        view.setVisible(true);
+        this.view.setVisible(true);
     }
     
     public InventoryManagementController(InventoryManagementModel model, InventoryManagementView view) {
         this.model = model;
         this.view = view;
         
-        view.setVisible(true);
+        this.view.setVisible(true);
     }
 }
