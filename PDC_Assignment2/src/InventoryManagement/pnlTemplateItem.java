@@ -6,9 +6,6 @@ package InventoryManagement;
 
 public class pnlTemplateItem extends javax.swing.JPanel {
 
-    /**
-     * Creates new form pnlFoodItem
-     */
     public pnlTemplateItem() {
         //initialisation of form & components
         initComponents();

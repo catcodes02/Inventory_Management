@@ -4,9 +4,6 @@ import javax.swing.JOptionPane;
 
 public class pnlCategory extends javax.swing.JPanel {
 
-    /**
-     * Creates new form pnlCategory
-     */
     public pnlCategory() {
         //initialisation of form & components
         initComponents();

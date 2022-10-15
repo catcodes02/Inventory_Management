@@ -1,13 +1,21 @@
 package InventoryManagement;
 
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
+
 public class InventoryManagementView extends javax.swing.JFrame {
 
-    /**
-     * Creates new form InventoryManagementGUI
-     */
+    private InventoryManagementController controller = null;
+    private DefaultListModel categoryListModel = new DefaultListModel();
+
     public InventoryManagementView() {
+        //constructor
+    }
+
+    public void startGUI() {
         //initialisation of form & components
         initComponents();
+        fillCategories();
         setLocationRelativeTo(null);
 
         //Set visibilities
@@ -15,9 +23,18 @@ public class InventoryManagementView extends javax.swing.JFrame {
 
         //background colour
         this.getContentPane().setBackground(new java.awt.Color(175, 199, 249));
+
+        //show GUI
+        this.setVisible(true);
+    }
+
+    public void setController(InventoryManagementController controller) {
+        this.controller = controller;
     }
 
     public void homeVisibility() {
+        controller.changeState(InventoryManagementController.State.HOME);
+
         pnlHome.setVisible(true);
         pnlCategory.setVisible(false);
         btnReturn.setVisible(false);
@@ -25,10 +42,18 @@ public class InventoryManagementView extends javax.swing.JFrame {
     }
 
     public void categoryVisibility() {
+        controller.categoryFactory.changeStateToCategory(controller, lstCategories.getSelectedValue());
+
         pnlHome.setVisible(false);
         pnlCategory.defaultVisibility();
         pnlCategory.setVisible(true);
         btnReturn.setVisible(true);
+    }
+
+    private void fillCategories() {
+        for (String category : controller.categoryFactory.categories) {
+            categoryListModel.addElement(category);
+        }
     }
 
     /**
@@ -47,7 +72,7 @@ public class InventoryManagementView extends javax.swing.JFrame {
         pnlHome = new javax.swing.JPanel();
         lblCategories = new javax.swing.JLabel();
         scrCategories = new javax.swing.JScrollPane();
-        lstCategories = new javax.swing.JList<>();
+        lstCategories = new JList(categoryListModel);
         pnlCategory = new InventoryManagement.pnlCategory();
         btnReturn = new javax.swing.JButton();
         btnQuit = new javax.swing.JButton();
@@ -56,7 +81,6 @@ public class InventoryManagementView extends javax.swing.JFrame {
         setTitle("Inventory Management");
         setAutoRequestFocus(false);
         setMinimumSize(new java.awt.Dimension(410, 430));
-        setPreferredSize(new java.awt.Dimension(410, 430));
         setResizable(false);
         setSize(new java.awt.Dimension(410, 430));
         getContentPane().setLayout(null);
@@ -101,11 +125,6 @@ public class InventoryManagementView extends javax.swing.JFrame {
         scrCategories.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
 
         lstCategories.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
-        lstCategories.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Food", "Cleaning Supplies", "Cosmetics" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         lstCategories.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lstCategoriesMouseClicked(evt);
@@ -156,6 +175,7 @@ public class InventoryManagementView extends javax.swing.JFrame {
     }//GEN-LAST:event_lstCategoriesMouseClicked
 
     private void btnQuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitActionPerformed
+        controller.changeState(InventoryManagementController.State.NONE);
         this.dispose();
     }//GEN-LAST:event_btnQuitActionPerformed
 
