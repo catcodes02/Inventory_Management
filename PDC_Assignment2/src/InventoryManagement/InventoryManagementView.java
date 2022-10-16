@@ -48,7 +48,7 @@ public class InventoryManagementView extends javax.swing.JFrame {
     }
 
     public void categoryVisibility() {
-        controller.categories.changeStateToCategory(controller, lstCategories.getSelectedValue());
+        controller.categories.changeLocationToCategory(controller, lstCategories.getSelectedValue());
         fillInventory();
 
         pnlHome.setVisible(false);
@@ -121,7 +121,7 @@ public class InventoryManagementView extends javax.swing.JFrame {
         pnlEditQuantity = new javax.swing.JPanel();
         spnQuantity = new javax.swing.JSpinner();
         btnConfirm = new javax.swing.JButton();
-        btnCancel = new javax.swing.JButton();
+        btnCancelQuantity = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Inventory Management");
@@ -314,16 +314,16 @@ public class InventoryManagementView extends javax.swing.JFrame {
             }
         });
 
-        btnCancel.setBackground(new java.awt.Color(221, 221, 221));
-        btnCancel.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        btnCancel.setText("CANCEL");
-        btnCancel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        btnCancel.setMaximumSize(new java.awt.Dimension(63, 23));
-        btnCancel.setMinimumSize(new java.awt.Dimension(63, 23));
-        btnCancel.setPreferredSize(new java.awt.Dimension(63, 23));
-        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+        btnCancelQuantity.setBackground(new java.awt.Color(221, 221, 221));
+        btnCancelQuantity.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        btnCancelQuantity.setText("CANCEL");
+        btnCancelQuantity.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnCancelQuantity.setMaximumSize(new java.awt.Dimension(63, 23));
+        btnCancelQuantity.setMinimumSize(new java.awt.Dimension(63, 23));
+        btnCancelQuantity.setPreferredSize(new java.awt.Dimension(63, 23));
+        btnCancelQuantity.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelActionPerformed(evt);
+                btnCancelQuantityActionPerformed(evt);
             }
         });
 
@@ -340,7 +340,7 @@ public class InventoryManagementView extends javax.swing.JFrame {
                             .addGap(20, 20, 20)
                             .addComponent(spnQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(btnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnCancelQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
         pnlEditQuantityLayout.setVerticalGroup(
@@ -353,7 +353,7 @@ public class InventoryManagementView extends javax.swing.JFrame {
                     .addGap(20, 20, 20)
                     .addComponent(btnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(10, 10, 10)
-                    .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCancelQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
 
@@ -397,8 +397,6 @@ public class InventoryManagementView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEditQuantityActionPerformed
 
     private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
-        System.out.println("Remove Button Pressed!");
-
         if (checkItemSelected()) { //error checking
             int confirm = JOptionPane.showConfirmDialog(null, "Remove " + lstInventory.getSelectedValue(), "CONFIRMATION", JOptionPane.YES_NO_OPTION);
             if (confirm == 0) {
@@ -408,21 +406,24 @@ public class InventoryManagementView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRemoveActionPerformed
 
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
-        System.out.println("confirmed quantity change");
-
-        /*send info to controller
-         */
+        if (controller.getQuantity(lstInventory.getSelectedValue()) + (int) spnQuantity.getValue() < 0) {
+            int confirm = JOptionPane.showConfirmDialog(null, "New quantity will be negative. \nIs this okay?", "CONFIRMATION", JOptionPane.YES_NO_OPTION);
+            if (confirm == 0) {
+                controller.updateQuantity(lstInventory.getSelectedValue(), (int) spnQuantity.getValue());
+                JOptionPane.showMessageDialog(null, lstInventory.getSelectedValue() + " now has quantity: " + controller.getQuantity(lstInventory.getSelectedValue()), "QUANTITY CHANGED", JOptionPane.PLAIN_MESSAGE);
+            }
+        }
         categoryComponentVisibility();
     }//GEN-LAST:event_btnConfirmActionPerformed
 
-    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+    private void btnCancelQuantityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelQuantityActionPerformed
         categoryComponentVisibility();
-    }//GEN-LAST:event_btnCancelActionPerformed
+    }//GEN-LAST:event_btnCancelQuantityActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
-    private javax.swing.JButton btnCancel;
+    private javax.swing.JButton btnCancelQuantity;
     private javax.swing.JButton btnConfirm;
     private javax.swing.JButton btnEditQuantity;
     private javax.swing.JButton btnQuit;

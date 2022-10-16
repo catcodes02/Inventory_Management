@@ -87,6 +87,23 @@ public class InventoryManagementModel {
         return itemNames.toArray(returnArray);
     }
 
+    public int getItemQuantity(String table, String itemName) {
+        int quantity = 0;
+
+        try {
+            this.statement = conn.createStatement();
+            ResultSet rs = this.statement.executeQuery("SELECT QUANTITY FROM " + table + " WHERE ITEM_NAME = '" + itemName + "'");
+            rs.next();
+            quantity = rs.getInt(1);
+
+            rs.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(InventoryManagementModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return quantity;
+    }
+
     public Item getItem(String table, String itemName) {
         Item item = null;
 
@@ -126,6 +143,7 @@ public class InventoryManagementModel {
             amount += rs.getInt(1);
             this.statement.execute("UPDATE " + table + " SET QUANTITY = " + amount + " WHERE ITEM_NAME = '" + itemName + "'");
 
+            rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(InventoryManagementModel.class.getName()).log(Level.SEVERE, null, ex);
         }

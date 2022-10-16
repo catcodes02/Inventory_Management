@@ -440,7 +440,7 @@
                                   <Component id="spnQuantity" min="-2" pref="100" max="-2" attributes="0"/>
                               </Group>
                               <Component id="btnConfirm" alignment="0" min="-2" pref="140" max="-2" attributes="0"/>
-                              <Component id="btnCancel" alignment="0" min="-2" pref="140" max="-2" attributes="0"/>
+                              <Component id="btnCancelQuantity" alignment="0" min="-2" pref="140" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
@@ -457,7 +457,7 @@
                           <EmptySpace min="20" pref="20" max="-2" attributes="0"/>
                           <Component id="btnConfirm" min="-2" pref="40" max="-2" attributes="0"/>
                           <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
-                          <Component id="btnCancel" min="-2" pref="40" max="-2" attributes="0"/>
+                          <Component id="btnCancelQuantity" min="-2" pref="40" max="-2" attributes="0"/>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
@@ -500,7 +500,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnConfirmActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="btnCancel">
+            <Component class="javax.swing.JButton" name="btnCancelQuantity">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="dd" green="dd" red="dd" type="rgb"/>
@@ -525,7 +525,7 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelQuantityActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

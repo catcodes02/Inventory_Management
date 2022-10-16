@@ -40,10 +40,27 @@ public class InventoryManagementController {
     }
 
 //model & view communication
+    //get all item names from table
     public String[] getInventory() {
         return model.getItemNames(categories.getCurrentCategory(this));
     }
 
+    //get item quantity from table
+    public int getQuantity(String name) {
+        return model.getItemQuantity(categories.getCurrentCategory(this), name);
+    }
+
+    //add item to table
+    public void add() {
+
+    }
+
+    //update item quantity in table
+    public void updateQuantity(String name, int amount) {
+        this.model.updateItemQuantity(categories.getCurrentCategory(this), name, amount);
+    }
+
+    //remove item from table
     public void remove(String name) {
         this.model.removeItem(categories.getCurrentCategory(this), name);
         this.view.fillInventory();
