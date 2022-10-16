@@ -406,13 +406,17 @@ public class InventoryManagementView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRemoveActionPerformed
 
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
-        if (controller.getQuantity(lstInventory.getSelectedValue()) + (int) spnQuantity.getValue() < 0) {
-            int confirm = JOptionPane.showConfirmDialog(null, "New quantity will be negative. \nIs this okay?", "CONFIRMATION", JOptionPane.YES_NO_OPTION);
-            if (confirm == 0) {
-                controller.updateQuantity(lstInventory.getSelectedValue(), (int) spnQuantity.getValue());
-                JOptionPane.showMessageDialog(null, lstInventory.getSelectedValue() + " now has quantity: " + controller.getQuantity(lstInventory.getSelectedValue()), "QUANTITY CHANGED", JOptionPane.PLAIN_MESSAGE);
-            }
+        int newQuantity = controller.getQuantity(lstInventory.getSelectedValue()) + (int) spnQuantity.getValue();
+        int confirm = -1;
+
+        if (newQuantity < 0) {
+            confirm = JOptionPane.showConfirmDialog(null, "New quantity will be negative. \nIs this okay?", "CONFIRMATION", JOptionPane.YES_NO_OPTION);
         }
+        if ((newQuantity > -1) || (confirm == 0)) {
+            controller.updateQuantity(lstInventory.getSelectedValue(), (int) spnQuantity.getValue());
+            JOptionPane.showMessageDialog(null, lstInventory.getSelectedValue() + " now has quantity: " + controller.getQuantity(lstInventory.getSelectedValue()), "QUANTITY CHANGED", JOptionPane.PLAIN_MESSAGE);
+        }
+
         categoryComponentVisibility();
     }//GEN-LAST:event_btnConfirmActionPerformed
 
