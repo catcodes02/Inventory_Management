@@ -26,4 +26,11 @@ public class InventoryManagementController {
         //show GUI
         this.view.setVisible(true);
     }
+
+    //enum describes current page state
+    public enum currentState {
+        NONE, HOME,
+        //add categories here
+        CATEGORY_FOOD, CATEGORY_COSMETICS, CATEGORY_CLEANING_SUPPLIES
+    };
 }
