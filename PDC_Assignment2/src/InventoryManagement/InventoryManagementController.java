@@ -4,15 +4,15 @@ public class InventoryManagementController {
 
     public final InventoryManagementModel model;
     public final InventoryManagementView view;
-    public final CategoryFactory categoryFactory;
+    public final Categories categories;
 
-    public State currentState = State.NONE;
+    public Location currentLocation = Location.NONE;
 
     public InventoryManagementController() {
         this.model = new InventoryManagementModel();
         this.view = new InventoryManagementView();
 
-        this.categoryFactory = new CategoryFactory();
+        this.categories = new Categories();
 
         view.setController(this);
         this.view.startGUI();
@@ -22,18 +22,18 @@ public class InventoryManagementController {
         this.model = model;
         this.view = view;
 
-        this.categoryFactory = new CategoryFactory();
+        this.categories = new Categories();
 
         view.setController(this);
         this.view.startGUI();
     }
 
-    public void changeState(State state) {
-        this.currentState = state;
+    public void changeState(Location location) {
+        this.currentLocation = location;
     }
 
     //enum describes current page state
-    public enum State {
+    public enum Location {
         NONE, HOME,
         //add categories here
         CATEGORY_FOOD, CATEGORY_COSMETICS, CATEGORY_CLEANING_SUPPLIES

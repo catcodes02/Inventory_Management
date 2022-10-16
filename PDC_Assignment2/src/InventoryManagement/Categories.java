@@ -1,6 +1,6 @@
 package InventoryManagement;
 
-public class CategoryFactory {
+public class Categories {
 
     //available categories
     public final String[] categories
@@ -10,16 +10,16 @@ public class CategoryFactory {
 
         switch (category) {
             case "Food":
-                controller.changeState(InventoryManagementController.State.CATEGORY_FOOD);
+                controller.changeState(InventoryManagementController.Location.CATEGORY_FOOD);
                 break;
             case "Cosmetics":
-                controller.changeState(InventoryManagementController.State.CATEGORY_COSMETICS);
+                controller.changeState(InventoryManagementController.Location.CATEGORY_COSMETICS);
                 break;
             case "Cleaning Supplies":
-                controller.changeState(InventoryManagementController.State.CATEGORY_CLEANING_SUPPLIES);
+                controller.changeState(InventoryManagementController.Location.CATEGORY_CLEANING_SUPPLIES);
                 break;
             default:
-                controller.changeState(InventoryManagementController.State.NONE);
+                controller.changeState(InventoryManagementController.Location.NONE);
                 break;
         }
     }

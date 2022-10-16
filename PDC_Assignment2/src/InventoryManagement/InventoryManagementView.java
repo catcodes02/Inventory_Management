@@ -33,7 +33,7 @@ public class InventoryManagementView extends javax.swing.JFrame {
     }
 
     public void homeVisibility() {
-        controller.changeState(InventoryManagementController.State.HOME);
+        controller.changeState(InventoryManagementController.Location.HOME);
 
         pnlHome.setVisible(true);
         pnlCategory.setVisible(false);
@@ -42,7 +42,7 @@ public class InventoryManagementView extends javax.swing.JFrame {
     }
 
     public void categoryVisibility() {
-        controller.categoryFactory.changeStateToCategory(controller, lstCategories.getSelectedValue());
+        controller.categories.changeStateToCategory(controller, lstCategories.getSelectedValue());
 
         pnlHome.setVisible(false);
         pnlCategory.defaultVisibility();
@@ -51,7 +51,7 @@ public class InventoryManagementView extends javax.swing.JFrame {
     }
 
     private void fillCategories() {
-        for (String category : controller.categoryFactory.categories) {
+        for (String category : controller.categories.categories) {
             categoryListModel.addElement(category);
         }
     }
@@ -175,7 +175,7 @@ public class InventoryManagementView extends javax.swing.JFrame {
     }//GEN-LAST:event_lstCategoriesMouseClicked
 
     private void btnQuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitActionPerformed
-        controller.changeState(InventoryManagementController.State.NONE);
+        controller.changeState(InventoryManagementController.Location.NONE);
         this.dispose();
     }//GEN-LAST:event_btnQuitActionPerformed
 
