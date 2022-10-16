@@ -12,6 +12,7 @@ public class InventoryManagementView extends javax.swing.JFrame {
     public InventoryManagementView() {
         //close operation
         addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
             public void windowClosing(java.awt.event.WindowEvent e) {
                 controller.endProgram();
             }
@@ -21,6 +22,7 @@ public class InventoryManagementView extends javax.swing.JFrame {
     public void startGUI() {
         //initialisation of form & components
         initComponents();
+        setPanelGUIs();
         fillCategories();
         setLocationRelativeTo(null);
 
@@ -36,6 +38,12 @@ public class InventoryManagementView extends javax.swing.JFrame {
 
     public void setController(InventoryManagementController controller) {
         this.controller = controller;
+    }
+
+    public void setPanelGUIs() {
+        pnlFoodItem.setGUI(this);
+        pnlCosmeticItem.setGUI(this);
+        pnlCleaningItem.setGUI(this);
     }
 
     public void homeVisibility() {
@@ -60,6 +68,10 @@ public class InventoryManagementView extends javax.swing.JFrame {
     public void categoryComponentVisibility() {
         pnlButtons.setVisible(true);
         pnlEditQuantity.setVisible(false);
+        spnUpdateQuantity.setValue(0);
+        pnlFoodItem.setVisible(false);
+        pnlCosmeticItem.setVisible(false);
+        pnlCleaningItem.setVisible(false);
     }
 
     public void setCategoryLabel(String name) {
@@ -91,6 +103,11 @@ public class InventoryManagementView extends javax.swing.JFrame {
         return itemSelected;
     }
 
+    public void recieveNewItem(String name, int quantity, double price, String other) {
+        ItemFactory factory = new ItemFactory();
+        controller.add(factory.createItem(controller.categories.getCurrentCategory(controller), name, quantity, price, other));
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -119,9 +136,12 @@ public class InventoryManagementView extends javax.swing.JFrame {
         btnEditQuantity = new javax.swing.JButton();
         btnRemove = new javax.swing.JButton();
         pnlEditQuantity = new javax.swing.JPanel();
-        spnQuantity = new javax.swing.JSpinner();
-        btnConfirm = new javax.swing.JButton();
+        spnUpdateQuantity = new javax.swing.JSpinner();
+        btnConfirmQuantity = new javax.swing.JButton();
         btnCancelQuantity = new javax.swing.JButton();
+        pnlFoodItem = new InventoryManagement.pnlFoodItem();
+        pnlCosmeticItem = new InventoryManagement.pnlCosmeticItem();
+        pnlCleaningItem = new InventoryManagement.pnlCleaningItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Inventory Management");
@@ -219,11 +239,6 @@ public class InventoryManagementView extends javax.swing.JFrame {
 
         lstInventory.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         lstInventory.setModel(this.inventoryListModel);
-        lstInventory.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lstInventoryMouseClicked(evt);
-            }
-        });
         scrCategories1.setViewportView(lstInventory);
 
         pnlCategory.add(scrCategories1);
@@ -299,18 +314,18 @@ public class InventoryManagementView extends javax.swing.JFrame {
 
         pnlEditQuantity.setBackground(new java.awt.Color(175, 199, 249));
 
-        spnQuantity.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        spnUpdateQuantity.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
 
-        btnConfirm.setBackground(new java.awt.Color(221, 221, 221));
-        btnConfirm.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        btnConfirm.setText("CONFIRM");
-        btnConfirm.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        btnConfirm.setMaximumSize(new java.awt.Dimension(63, 23));
-        btnConfirm.setMinimumSize(new java.awt.Dimension(63, 23));
-        btnConfirm.setPreferredSize(new java.awt.Dimension(63, 23));
-        btnConfirm.addActionListener(new java.awt.event.ActionListener() {
+        btnConfirmQuantity.setBackground(new java.awt.Color(221, 221, 221));
+        btnConfirmQuantity.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        btnConfirmQuantity.setText("CONFIRM");
+        btnConfirmQuantity.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnConfirmQuantity.setMaximumSize(new java.awt.Dimension(63, 23));
+        btnConfirmQuantity.setMinimumSize(new java.awt.Dimension(63, 23));
+        btnConfirmQuantity.setPreferredSize(new java.awt.Dimension(63, 23));
+        btnConfirmQuantity.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnConfirmActionPerformed(evt);
+                btnConfirmQuantityActionPerformed(evt);
             }
         });
 
@@ -338,8 +353,8 @@ public class InventoryManagementView extends javax.swing.JFrame {
                     .addGroup(pnlEditQuantityLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(pnlEditQuantityLayout.createSequentialGroup()
                             .addGap(20, 20, 20)
-                            .addComponent(spnQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(btnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(spnUpdateQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnConfirmQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnCancelQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
@@ -349,9 +364,9 @@ public class InventoryManagementView extends javax.swing.JFrame {
             .addGroup(pnlEditQuantityLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(pnlEditQuantityLayout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(spnQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(spnUpdateQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(20, 20, 20)
-                    .addComponent(btnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnConfirmQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(10, 10, 10)
                     .addComponent(btnCancelQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 0, Short.MAX_VALUE)))
@@ -359,6 +374,12 @@ public class InventoryManagementView extends javax.swing.JFrame {
 
         pnlCategory.add(pnlEditQuantity);
         pnlEditQuantity.setBounds(190, 60, 210, 180);
+        pnlCategory.add(pnlFoodItem);
+        pnlFoodItem.setBounds(190, 60, 210, 180);
+        pnlCategory.add(pnlCosmeticItem);
+        pnlCosmeticItem.setBounds(190, 60, 210, 180);
+        pnlCategory.add(pnlCleaningItem);
+        pnlCleaningItem.setBounds(190, 60, 210, 180);
 
         getContentPane().add(pnlCategory);
         pnlCategory.setBounds(0, 80, 400, 270);
@@ -379,17 +400,26 @@ public class InventoryManagementView extends javax.swing.JFrame {
         controller.endProgram();
     }//GEN-LAST:event_btnQuitActionPerformed
 
-    private void lstInventoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstInventoryMouseClicked
-        System.out.println(lstInventory.getSelectedValue());
-    }//GEN-LAST:event_lstInventoryMouseClicked
-
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        System.out.println("Add Button Pressed!");
+        pnlButtons.setVisible(false);
+
+        //only show add panel of current category
+        switch (controller.currentLocation) {
+            case CATEGORY_FOOD:
+                pnlFoodItem.setVisible(true);
+                break;
+            case CATEGORY_COSMETIC:
+                pnlCosmeticItem.setVisible(true);
+                break;
+            case CATEGORY_CLEANING:
+                pnlCleaningItem.setVisible(true);
+                break;
+            default:
+                break;
+        }
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnEditQuantityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditQuantityActionPerformed
-        System.out.println("Edit Quantity Button Pressed!");
-
         if (checkItemSelected()) { //error checking
             pnlButtons.setVisible(false);
             pnlEditQuantity.setVisible(true);
@@ -405,30 +435,30 @@ public class InventoryManagementView extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnRemoveActionPerformed
 
-    private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
-        int newQuantity = controller.getQuantity(lstInventory.getSelectedValue()) + (int) spnQuantity.getValue();
+    private void btnConfirmQuantityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmQuantityActionPerformed
+        int newQuantity = controller.getQuantity(lstInventory.getSelectedValue()) + (int) spnUpdateQuantity.getValue();
         int confirm = -1;
 
         if (newQuantity < 0) {
             confirm = JOptionPane.showConfirmDialog(null, "New quantity will be negative. \nIs this okay?", "CONFIRMATION", JOptionPane.YES_NO_OPTION);
         }
         if ((newQuantity > -1) || (confirm == 0)) {
-            controller.updateQuantity(lstInventory.getSelectedValue(), (int) spnQuantity.getValue());
+            controller.updateQuantity(lstInventory.getSelectedValue(), (int) spnUpdateQuantity.getValue());
             JOptionPane.showMessageDialog(null, lstInventory.getSelectedValue() + " now has quantity: " + controller.getQuantity(lstInventory.getSelectedValue()), "QUANTITY CHANGED", JOptionPane.PLAIN_MESSAGE);
         }
 
-        categoryComponentVisibility();
-    }//GEN-LAST:event_btnConfirmActionPerformed
+        categoryVisibility();
+    }//GEN-LAST:event_btnConfirmQuantityActionPerformed
 
     private void btnCancelQuantityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelQuantityActionPerformed
-        categoryComponentVisibility();
+        categoryVisibility();
     }//GEN-LAST:event_btnCancelQuantityActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnCancelQuantity;
-    private javax.swing.JButton btnConfirm;
+    private javax.swing.JButton btnConfirmQuantity;
     private javax.swing.JButton btnEditQuantity;
     private javax.swing.JButton btnQuit;
     private javax.swing.JButton btnRemove;
@@ -442,11 +472,14 @@ public class InventoryManagementView extends javax.swing.JFrame {
     private javax.swing.JList<String> lstInventory;
     private javax.swing.JPanel pnlButtons;
     private javax.swing.JPanel pnlCategory;
+    private InventoryManagement.pnlCleaningItem pnlCleaningItem;
+    private InventoryManagement.pnlCosmeticItem pnlCosmeticItem;
     private javax.swing.JPanel pnlEditQuantity;
+    private InventoryManagement.pnlFoodItem pnlFoodItem;
     private javax.swing.JPanel pnlHome;
     private javax.swing.JPanel pnlTitle;
     private javax.swing.JScrollPane scrCategories;
     private javax.swing.JScrollPane scrCategories1;
-    private javax.swing.JSpinner spnQuantity;
+    private javax.swing.JSpinner spnUpdateQuantity;
     // End of variables declaration//GEN-END:variables
 }
