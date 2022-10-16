@@ -1,7 +1,7 @@
-Sun Oct 16 13:55:54 NZDT 2022 : Apache Derby Network Server - 10.14.2.0 - (1828579) started and ready to accept connections on port 1527
+Sun Oct 16 14:55:31 NZDT 2022 : Apache Derby Network Server - 10.14.2.0 - (1828579) started and ready to accept connections on port 1527
 ----------------------------------------------------------------
-Sun Oct 16 13:55:55 NZDT 2022:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0183-de4a-390b-ffffd9bb4ce9 
+Sun Oct 16 14:55:31 NZDT 2022:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0183-de80-cc14-ffffd9bb4ce9 
 on database directory C:\Users\cpypr\Desktop\Uni Docs\SEM4\COMP603\Assignment 2\GitRepo\Inventory_Management\PDC_Assignment2\InventoryManagement_EDB with class loader sun.misc.Launcher$AppClassLoader@1d44bcfa 
 Loaded from file:/C:/Users/cpypr/Desktop/Uni%20Docs/SEM4/COMP603/Data_Base/db-derby-10.14.2.0-bin/lib/derby.jar
 java.vendor=Oracle Corporation
@@ -12,5 +12,3 @@ os.arch=amd64
 os.version=10.0
 derby.system.home=C:\Users\cpypr\Desktop\Uni Docs\SEM4\COMP603\Assignment 2\GitRepo\Inventory_Management\PDC_Assignment2
 Database Class Loader started - derby.database.classpath=''
-----------------------------------------------------------------
-Sun Oct 16 13:56:09 NZDT 2022: Shutting down Derby engine
