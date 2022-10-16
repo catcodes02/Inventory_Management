@@ -1,6 +1,5 @@
 package InventoryManagement;
 
-//derby database handling
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -60,11 +59,13 @@ public class InventoryManagementModel {
         }
     }
 
+    //create and write (fill) example tables
     public void createExampleTables() {
         exampleTables = new DBTables();
         exampleTables.createTables();
     }
 
+//reading
     public String[] getItemNames(String table) {
         ArrayList<String> itemNames = new ArrayList();
 
@@ -90,11 +91,11 @@ public class InventoryManagementModel {
 
         try {
             this.statement = conn.createStatement();
-            ResultSet rs = this.statement.executeQuery("SELECT * FROM " + table + " WHERE ITEM_NAME = " + itemName);
+            ResultSet rs = this.statement.executeQuery("SELECT * FROM " + table + " WHERE ITEM_NAME = '" + itemName + "'");
             rs.next();
 
             ItemFactory factory = new ItemFactory();
-            item = factory.createItem(table, rs.getString(1), rs.getDouble(2), rs.getInt(3), rs.getString(4));
+            item = factory.createItem(table, rs.getString(1), rs.getInt(2), rs.getDouble(3), rs.getString(4));
 
             rs.close();
         } catch (SQLException ex) {
@@ -102,5 +103,39 @@ public class InventoryManagementModel {
         }
 
         return item;
+    }
+
+//writting
+    public void updateItemQuantity(String table, String itemName, int amount) {
+        try {
+            this.statement = conn.createStatement();
+            ResultSet rs = this.statement.executeQuery("SELECT QUANTITY FROM " + table + " WHERE ITEM_NAME = '" + itemName + "'");
+            rs.next();
+            amount += rs.getInt(1);
+            this.statement.execute("UPDATE " + table + " SET QUANTITY = " + amount + " WHERE ITEM_NAME = '" + itemName + "'");
+
+        } catch (SQLException ex) {
+            Logger.getLogger(InventoryManagementModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void addItem(String table, Item item) {
+        try {
+            this.statement = conn.createStatement();
+            this.statement.execute("INSERT INTO " + table + " VALUES " + item.getSQLString());
+
+        } catch (SQLException ex) {
+            Logger.getLogger(InventoryManagementModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void removeItem(String table, String itemName) {
+        try {
+            this.statement = conn.createStatement();
+            this.statement.execute("DELETE FROM " + table + " WHERE ITEM_NAME = '" + itemName + "'");
+
+        } catch (SQLException ex) {
+            Logger.getLogger(InventoryManagementModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

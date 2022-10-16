@@ -25,6 +25,13 @@ public class CosmeticItem extends Item {
         this.application = bodyPart;
     }
 
+    //method used to add items to database
+    @Override
+    public String getSQLString() {
+        return "('" + this.getName() + "'," + this.getQuantity() + ", "
+                + this.getPrice() + ", " + this.getApplication() + ")";
+    }
+
 //item_name + quantity + price_NZD + application_body_part
     @Override
     public String toString() {

@@ -32,6 +32,13 @@ public class FoodItem extends Item {
         return LocalDate.now().plusDays(this.shelfLife);
     }
 
+    //method used to add items to database
+    @Override
+    public String getSQLString() {
+        return "('" + this.getName() + "'," + this.getQuantity() + ", "
+                + this.getPrice() + ", " + this.getShelfLife() + ")";
+    }
+
 //item_name + quantity + price_NZD + shelf_life_days
     @Override
     public String toString() {

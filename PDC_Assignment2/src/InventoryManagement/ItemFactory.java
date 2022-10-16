@@ -2,7 +2,7 @@ package InventoryManagement;
 
 public class ItemFactory {
 
-    public Item createItem(String category, String name, double price, int quantity, String other) {
+    public Item createItem(String category, String name, int quantity, double price, String other) {
         Item item;
 
         switch (category.toUpperCase()) {

@@ -59,4 +59,8 @@ public abstract class Item {
 
     public void setApplication(String bodyPart) {
     }
+
+    public String getSQLString() {
+        return "";
+    }
 }

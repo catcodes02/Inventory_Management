@@ -37,6 +37,13 @@ public class CleaningSuppliesItem extends Item {
         System.out.println(this.getWarning());
     }
 
+    //method used to add items to database
+    @Override
+    public String getSQLString() {
+        return "('" + this.getName() + "'," + this.getQuantity() + ", "
+                + this.getPrice() + ", " + this.getUsage() + ")";
+    }
+
 //item_name + quantity + price_NZD + application_body_part
     @Override
     public String toString() {
