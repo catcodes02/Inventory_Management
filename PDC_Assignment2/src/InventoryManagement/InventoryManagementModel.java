@@ -105,6 +105,17 @@ public class InventoryManagementModel {
         return item;
     }
 
+    public Item[] getTable(String table) {
+        String[] itemNames = this.getItemNames(table);
+        Item[] items = new Item[itemNames.length];
+
+        for (int i = 0; i < itemNames.length; i++) {
+            items[i] = this.getItem(table, itemNames[i]);
+        }
+
+        return items;
+    }
+
 //writting
     public void updateItemQuantity(String table, String itemName, int amount) {
         try {
