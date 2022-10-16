@@ -1,14 +1,13 @@
-Sun Oct 16 14:55:31 NZDT 2022 : Apache Derby Network Server - 10.14.2.0 - (1828579) started and ready to accept connections on port 1527
 ----------------------------------------------------------------
-Sun Oct 16 14:55:31 NZDT 2022:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0183-de80-cc14-ffffd9bb4ce9 
-on database directory C:\Users\cpypr\Desktop\Uni Docs\SEM4\COMP603\Assignment 2\GitRepo\Inventory_Management\PDC_Assignment2\InventoryManagement_EDB with class loader sun.misc.Launcher$AppClassLoader@1d44bcfa 
-Loaded from file:/C:/Users/cpypr/Desktop/Uni%20Docs/SEM4/COMP603/Data_Base/db-derby-10.14.2.0-bin/lib/derby.jar
+Sun Oct 16 15:11:09 NZDT 2022:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0183-de8f-2f2d-00000af59da0 
+on database directory C:\Users\cpypr\Desktop\Uni Docs\SEM4\COMP603\Assignment 2\GitRepo\Inventory_Management\PDC_Assignment2\InventoryManagement_EDB with class loader sun.misc.Launcher$AppClassLoader@6e0be858 
+Loaded from file:/C:/Users/cpypr/Downloads/db-derby-10.14.2.0-lib/db-derby-10.14.2.0-lib/lib/derby.jar
 java.vendor=Oracle Corporation
 java.runtime.version=1.8.0_171-b11
-user.dir=C:\Users\cpypr\Desktop\Uni Docs\SEM4\COMP603\Data_Base\db-derby-10.14.2.0-bin
+user.dir=C:\Users\cpypr\Desktop\Uni Docs\SEM4\COMP603\Assignment 2\GitRepo\Inventory_Management\PDC_Assignment2
 os.name=Windows 10
 os.arch=amd64
 os.version=10.0
-derby.system.home=C:\Users\cpypr\Desktop\Uni Docs\SEM4\COMP603\Assignment 2\GitRepo\Inventory_Management\PDC_Assignment2
+derby.system.home=null
 Database Class Loader started - derby.database.classpath=''

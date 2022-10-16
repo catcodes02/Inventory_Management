@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -64,17 +65,42 @@ public class InventoryManagementModel {
         exampleTables.createTables();
     }
 
-    public void getItemNames(String table) {
+    public String[] getItemNames(String table) {
+        ArrayList<String> itemNames = new ArrayList();
+
         try {
-            ResultSet rs = this.statement.executeQuery("SELECT * FROM " + table);
+            this.statement = conn.createStatement();
+            ResultSet rs = this.statement.executeQuery("SELECT ITEM_NAME FROM " + table);
 
             while (rs.next()) {
-                System.out.println(rs.getString("ITEM_NAME"));
+                itemNames.add(rs.getString(1));
             }
 
             rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(InventoryManagementModel.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+        String[] returnArray = new String[itemNames.size()];
+        return itemNames.toArray(returnArray);
+    }
+
+    public Item getItem(String table, String itemName) {
+        Item item = null;
+
+        try {
+            this.statement = conn.createStatement();
+            ResultSet rs = this.statement.executeQuery("SELECT * FROM " + table + " WHERE ITEM_NAME = " + itemName);
+            rs.next();
+
+            ItemFactory factory = new ItemFactory();
+            item = factory.createItem(table, rs.getString(1), rs.getDouble(2), rs.getInt(3), rs.getString(4));
+
+            rs.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(InventoryManagementModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return item;
     }
 }

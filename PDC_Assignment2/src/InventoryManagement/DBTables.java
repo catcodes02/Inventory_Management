@@ -33,28 +33,7 @@ public class DBTables {
         cosmeticTable();
     }
 
-    private void checkTableExists(String name) {
-        try {
-            DatabaseMetaData dbmd = this.conn.getMetaData();
-            String[] types = {"TABLE"};
-            statement = this.conn.createStatement();
-            ResultSet rs = dbmd.getTables(null, null, null, types);
-
-            while (rs.next()) {
-                String table_name = rs.getString("TABLE_NAME");
-
-                if (table_name.equalsIgnoreCase(name)) {
-                    statement.execute("DROP TABLE " + name);
-                    break;
-                }
-            }
-
-            rs.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(DBTables.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
+//category tables
     private void foodTable() {
         try {
             this.statement = conn.createStatement();
@@ -84,7 +63,7 @@ public class DBTables {
         try {
             this.statement = conn.createStatement();
             checkTableExists("CleaningSupplies");
-            this.statement.addBatch("CREATE TABLE CleaningSupplies (item_name VARCHAR(50), quantity INT, price DOUBLE, application VARCHAR(50))");
+            this.statement.addBatch("CREATE TABLE CleaningSupplies (item_name VARCHAR(50), quantity INT, price DOUBLE, usage VARCHAR(50))");
             this.statement.addBatch("INSERT INTO CleaningSupplies VALUES "
                     + "('detergent', 68, 4.5, 'laundry'), \n"
                     + "('drain cleaner', 22, 14.35, 'sinks/drains'), \n"
@@ -101,7 +80,7 @@ public class DBTables {
         try {
             this.statement = conn.createStatement();
             checkTableExists("Cosmetic");
-            this.statement.addBatch("CREATE TABLE Cosmetic (item_name VARCHAR(50), quantity INT, price DOUBLE, body_part VARCHAR(50))");
+            this.statement.addBatch("CREATE TABLE Cosmetic (item_name VARCHAR(50), quantity INT, price DOUBLE, application VARCHAR(50))");
             this.statement.addBatch("INSERT INTO Cosmetic VALUES "
                     + "('eyeshadow', 12, 5.18, 'eyelids'), \n"
                     + "('lipstick', 63, 4.13, 'lips'), \n"
@@ -110,6 +89,28 @@ public class DBTables {
             );
 
             this.statement.executeBatch();
+        } catch (SQLException ex) {
+            Logger.getLogger(DBTables.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void checkTableExists(String name) {
+        try {
+            DatabaseMetaData dbmd = this.conn.getMetaData();
+            String[] types = {"TABLE"};
+            statement = this.conn.createStatement();
+            ResultSet rs = dbmd.getTables(null, null, null, types);
+
+            while (rs.next()) {
+                String table_name = rs.getString("TABLE_NAME");
+
+                if (table_name.equalsIgnoreCase(name)) {
+                    statement.execute("DROP TABLE " + name);
+                    break;
+                }
+            }
+
+            rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(DBTables.class.getName()).log(Level.SEVERE, null, ex);
         }
