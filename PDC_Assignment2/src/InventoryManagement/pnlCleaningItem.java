@@ -1,16 +1,12 @@
-/*
- * Add item panel template
- * copy template and adjust to item specifications
- */
 package InventoryManagement;
 
 import javax.swing.JOptionPane;
 
-public class pnlTemplateItem extends javax.swing.JPanel {
+public class pnlCleaningItem extends javax.swing.JPanel {
 
     InventoryManagementView GUI;
 
-    public pnlTemplateItem() {
+    public pnlCleaningItem() {
         //initialisation of form & components
         initComponents();
     }
@@ -31,15 +27,15 @@ public class pnlTemplateItem extends javax.swing.JPanel {
         return Double.parseDouble(txtPrice.getText());
     }
 
-    public String getOther() {
-        return txtOther.getText();
+    public String getUsage() {
+        return txtUsage.getText().trim();
     }
 
     private void clearInput() {
         txtName.setText("");
         spnQuantity.setValue(0);
         txtPrice.setText("");
-        txtOther.setText("");
+        txtUsage.setText("");
     }
 
     private boolean validateInput() {
@@ -48,6 +44,10 @@ public class pnlTemplateItem extends javax.swing.JPanel {
         //validate name
         if (txtName.getText().trim().equals("")) {
             JOptionPane.showMessageDialog(null, "Missing item name!", "ERROR", JOptionPane.ERROR_MESSAGE);
+
+            //validate usage
+        } else if (txtUsage.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(null, "Missing item usage!", "ERROR", JOptionPane.ERROR_MESSAGE);
         } else {
 
             //validate quantity
@@ -90,11 +90,11 @@ public class pnlTemplateItem extends javax.swing.JPanel {
         spnQuantity = new javax.swing.JSpinner();
         btnConfirmAdd = new javax.swing.JButton();
         btnCancelAdd = new javax.swing.JButton();
-        txtOther = new javax.swing.JTextField();
+        txtUsage = new javax.swing.JTextField();
         lblName = new javax.swing.JLabel();
         lblQuantity = new javax.swing.JLabel();
         lblPrice = new javax.swing.JLabel();
-        lblOther = new javax.swing.JLabel();
+        lblUsage = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(175, 199, 249));
         setMinimumSize(new java.awt.Dimension(210, 180));
@@ -148,12 +148,12 @@ public class pnlTemplateItem extends javax.swing.JPanel {
         add(btnCancelAdd);
         btnCancelAdd.setBounds(110, 150, 90, 23);
 
-        txtOther.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        txtOther.setToolTipText("...");
-        txtOther.setMinimumSize(new java.awt.Dimension(30, 24));
-        txtOther.setPreferredSize(new java.awt.Dimension(30, 24));
-        add(txtOther);
-        txtOther.setBounds(100, 100, 100, 24);
+        txtUsage.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        txtUsage.setToolTipText("e.g. Windows");
+        txtUsage.setMinimumSize(new java.awt.Dimension(30, 24));
+        txtUsage.setPreferredSize(new java.awt.Dimension(30, 24));
+        add(txtUsage);
+        txtUsage.setBounds(100, 100, 100, 24);
 
         lblName.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         lblName.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -179,18 +179,18 @@ public class pnlTemplateItem extends javax.swing.JPanel {
         add(lblPrice);
         lblPrice.setBounds(10, 70, 80, 20);
 
-        lblOther.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        lblOther.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblOther.setText("Other: ");
-        lblOther.setMinimumSize(new java.awt.Dimension(30, 24));
-        lblOther.setPreferredSize(new java.awt.Dimension(30, 24));
-        add(lblOther);
-        lblOther.setBounds(10, 100, 80, 20);
+        lblUsage.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        lblUsage.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblUsage.setText("Usage: ");
+        lblUsage.setMinimumSize(new java.awt.Dimension(30, 24));
+        lblUsage.setPreferredSize(new java.awt.Dimension(30, 24));
+        add(lblUsage);
+        lblUsage.setBounds(10, 100, 80, 20);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnConfirmAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmAddActionPerformed
         if (validateInput()) {
-            GUI.recieveNewItem(txtName.getText(), (int) spnQuantity.getValue(), Double.parseDouble(txtPrice.getText()), txtOther.getText());
+            GUI.recieveNewItem(getName(), getQuantity(), getPrice(), getUsage());
             clearInput();
             GUI.categoryVisibility();
         }
@@ -206,12 +206,12 @@ public class pnlTemplateItem extends javax.swing.JPanel {
     private javax.swing.JButton btnCancelAdd;
     private javax.swing.JButton btnConfirmAdd;
     private javax.swing.JLabel lblName;
-    private javax.swing.JLabel lblOther;
     private javax.swing.JLabel lblPrice;
     private javax.swing.JLabel lblQuantity;
+    private javax.swing.JLabel lblUsage;
     private javax.swing.JSpinner spnQuantity;
     private javax.swing.JTextField txtName;
-    private javax.swing.JTextField txtOther;
     private javax.swing.JTextField txtPrice;
+    private javax.swing.JTextField txtUsage;
     // End of variables declaration//GEN-END:variables
 }

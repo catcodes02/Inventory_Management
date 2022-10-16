@@ -29,7 +29,7 @@ public class CosmeticItem extends Item {
     @Override
     public String getSQLString() {
         return "('" + this.getName() + "'," + this.getQuantity() + ", "
-                + this.getPrice() + ", " + this.getApplication() + ")";
+                + this.getPrice() + ", '" + this.getApplication() + "')";
     }
 
 //item_name + quantity + price_NZD + application_body_part

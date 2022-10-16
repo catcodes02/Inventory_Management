@@ -32,8 +32,8 @@ public class ItemFactory {
 
         if (item != null) { //error checking
             item.setName(name);
-            item.setPrice(price);
             item.setQuantity(quantity);
+            item.setPrice(price);
         }
         return item;
     }
