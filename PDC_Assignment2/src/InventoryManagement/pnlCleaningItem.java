@@ -6,11 +6,13 @@ public class pnlCleaningItem extends javax.swing.JPanel {
 
     InventoryManagementView GUI;
 
-    public pnlCleaningItem(InventoryManagementView GUI) {
-        this.GUI = GUI;
-
+    public pnlCleaningItem() {
         //initialisation of form & components
         initComponents();
+    }
+
+    public void setGUI(InventoryManagementView GUI) {
+        this.GUI = GUI;
     }
 
     public String getName() {

@@ -6,11 +6,13 @@ public class pnlCosmeticItem extends javax.swing.JPanel {
 
     InventoryManagementView GUI;
 
-    public pnlCosmeticItem(InventoryManagementView GUI) {
-        this.GUI = GUI;
-
+    public pnlCosmeticItem() {
         //initialisation of form & components
         initComponents();
+    }
+
+    public void setGUI(InventoryManagementView GUI) {
+        this.GUI = GUI;
     }
 
     public String getName() {

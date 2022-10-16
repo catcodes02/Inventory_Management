@@ -10,11 +10,13 @@ public class pnlTemplateItem extends javax.swing.JPanel {
 
     InventoryManagementView GUI;
 
-    public pnlTemplateItem(InventoryManagementView GUI) {
-        this.GUI = GUI;
-
+    public pnlTemplateItem() {
         //initialisation of form & components
         initComponents();
+    }
+
+    public void setGUI(InventoryManagementView GUI) {
+        this.GUI = GUI;
     }
 
     public String getName() {
