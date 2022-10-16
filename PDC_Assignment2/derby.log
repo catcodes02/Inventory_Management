@@ -1,0 +1,13 @@
+----------------------------------------------------------------
+Sun Oct 16 17:22:01 NZDT 2022:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0183-df06-ff17-00000af58198 
+on database directory C:\Users\cpypr\Desktop\Uni Docs\SEM4\COMP603\Assignment 2\GitRepo\Inventory_Management\PDC_Assignment2\InventoryManagement_EDB with class loader sun.misc.Launcher$AppClassLoader@6e0be858 
+Loaded from file:/C:/Users/cpypr/Downloads/db-derby-10.14.2.0-lib/db-derby-10.14.2.0-lib/lib/derby.jar
+java.vendor=Oracle Corporation
+java.runtime.version=1.8.0_171-b11
+user.dir=C:\Users\cpypr\Desktop\Uni Docs\SEM4\COMP603\Assignment 2\GitRepo\Inventory_Management\PDC_Assignment2
+os.name=Windows 10
+os.arch=amd64
+os.version=10.0
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''

@@ -9,13 +9,16 @@ public class InventoryManagementController {
     public Location currentLocation = Location.NONE;
 
     public InventoryManagementController() {
-        this.model = new InventoryManagementModel();
+        this.model = InventoryManagementModel.getInstance();
         this.view = new InventoryManagementView();
 
         this.categories = new Categories();
 
         view.setController(this);
         this.view.startGUI();
+
+        //create example tables
+        this.model.createExampleTables();
     }
 
     public InventoryManagementController(InventoryManagementModel model, InventoryManagementView view) {
@@ -30,6 +33,9 @@ public class InventoryManagementController {
 
     public void changeState(Location location) {
         this.currentLocation = location;
+
+        //create example tables
+        this.model.createExampleTables();
     }
 
     //enum describes current page state
