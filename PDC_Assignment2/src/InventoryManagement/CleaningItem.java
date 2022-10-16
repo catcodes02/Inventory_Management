@@ -41,7 +41,7 @@ public class CleaningItem extends Item {
     @Override
     public String getSQLString() {
         return "('" + this.getName() + "'," + this.getQuantity() + ", "
-                + this.getPrice() + ", " + this.getUsage() + ")";
+                + this.getPrice() + ", '" + this.getUsage() + "')";
     }
 
 //item_name + quantity + price_NZD + application_body_part

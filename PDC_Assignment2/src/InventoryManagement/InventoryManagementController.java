@@ -51,8 +51,8 @@ public class InventoryManagementController {
     }
 
     //add item to table
-    public void add() {
-
+    public void add(Item newItem) {
+        this.model.addItem(categories.getCurrentCategory(this), newItem);
     }
 
     //update item quantity in table
