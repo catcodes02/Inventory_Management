@@ -53,6 +53,7 @@ public class InventoryManagementModel {
         if (conn != null) {
             try {
                 conn.close();
+                System.out.println("closed connection.");
             } catch (SQLException ex) {
                 System.out.println(ex.getMessage());
             }

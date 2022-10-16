@@ -1,6 +1,6 @@
 package InventoryManagement;
 
-public class CleaningSuppliesItem extends Item {
+public class CleaningItem extends Item {
 
     private String usage; //what it cleans
     private final String warningMessage
@@ -8,12 +8,12 @@ public class CleaningSuppliesItem extends Item {
             + "Not suitable for consumption, call the poison centre (0800 764 766) if ingested.";
 
 //constructors
-    public CleaningSuppliesItem() {
+    public CleaningItem() {
         super();
         this.setUsage("unknown");
     }
 
-    public CleaningSuppliesItem(String name, double price, int quantity, String objectToClean) {
+    public CleaningItem(String name, double price, int quantity, String objectToClean) {
         super(name, price, quantity);
         this.setUsage(objectToClean);
     }

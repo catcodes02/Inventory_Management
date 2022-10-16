@@ -15,8 +15,8 @@ public class ItemFactory {
                 }
                 break;
 
-            case "CLEANINGSUPPLIES":
-                item = new CleaningSuppliesItem();
+            case "CLEANING":
+                item = new CleaningItem();
                 item.setUsage(other);
                 break;
 
