@@ -1,29 +1,59 @@
 package InventoryManagement;
 
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
+
 public class InventoryManagementView extends javax.swing.JFrame {
 
-    /**
-     * Creates new form InventoryManagementGUI
-     */
+    private InventoryManagementController controller = null;
+    private DefaultListModel categoryListModel = new DefaultListModel();
+
     public InventoryManagementView() {
+        //constructor
+    }
+
+    public void startGUI() {
         //initialisation of form & components
         initComponents();
+        fillCategories();
         setLocationRelativeTo(null);
 
-        //Setting visibility
-        setHomeVisibility();
+        //Set visibilities
+        homeVisibility();
+
+        //background colour
+        this.getContentPane().setBackground(new java.awt.Color(175, 199, 249));
+
+        //show GUI
+        this.setVisible(true);
     }
-    
-    public void setHomeVisibility(){
+
+    public void setController(InventoryManagementController controller) {
+        this.controller = controller;
+    }
+
+    public void homeVisibility() {
+        controller.changeState(InventoryManagementController.Location.HOME);
+
         pnlHome.setVisible(true);
         pnlCategory.setVisible(false);
         btnReturn.setVisible(false);
+        lstCategories.clearSelection();
     }
-    
-    public void SetCategoryVisibility(){
+
+    public void categoryVisibility() {
+        controller.categories.changeStateToCategory(controller, lstCategories.getSelectedValue());
+
         pnlHome.setVisible(false);
+        pnlCategory.defaultVisibility();
         pnlCategory.setVisible(true);
         btnReturn.setVisible(true);
+    }
+
+    private void fillCategories() {
+        for (String category : controller.categories.categories) {
+            categoryListModel.addElement(category);
+        }
     }
 
     /**
@@ -42,16 +72,15 @@ public class InventoryManagementView extends javax.swing.JFrame {
         pnlHome = new javax.swing.JPanel();
         lblCategories = new javax.swing.JLabel();
         scrCategories = new javax.swing.JScrollPane();
-        lstCategories = new javax.swing.JList<>();
+        lstCategories = new JList(categoryListModel);
         pnlCategory = new InventoryManagement.pnlCategory();
         btnReturn = new javax.swing.JButton();
         btnQuit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Inventory Management");
-        setBackground(new java.awt.Color(229, 229, 254));
+        setAutoRequestFocus(false);
         setMinimumSize(new java.awt.Dimension(410, 430));
-        setPreferredSize(new java.awt.Dimension(410, 430));
         setResizable(false);
         setSize(new java.awt.Dimension(410, 430));
         getContentPane().setLayout(null);
@@ -85,6 +114,7 @@ public class InventoryManagementView extends javax.swing.JFrame {
         getContentPane().add(pnlTitle);
         pnlTitle.setBounds(0, 0, 570, 80);
 
+        pnlHome.setBackground(new java.awt.Color(175, 199, 249));
         pnlHome.setLayout(null);
 
         lblCategories.setFont(new java.awt.Font("Times New Roman", 0, 20)); // NOI18N
@@ -95,11 +125,6 @@ public class InventoryManagementView extends javax.swing.JFrame {
         scrCategories.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
 
         lstCategories.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
-        lstCategories.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Food", "Cleaning Supplies", "Cosmetics" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         lstCategories.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lstCategoriesMouseClicked(evt);
@@ -141,54 +166,19 @@ public class InventoryManagementView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnActionPerformed
-        setHomeVisibility();
+        homeVisibility();
     }//GEN-LAST:event_btnReturnActionPerformed
 
     private void lstCategoriesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstCategoriesMouseClicked
-        System.out.println(lstCategories.getSelectedValue());
-
-        SetCategoryVisibility();
+        pnlCategory.setCategoryLabel(lstCategories.getSelectedValue());
+        categoryVisibility();
     }//GEN-LAST:event_lstCategoriesMouseClicked
 
     private void btnQuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitActionPerformed
+        controller.changeState(InventoryManagementController.Location.NONE);
         this.dispose();
     }//GEN-LAST:event_btnQuitActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(InventoryManagementView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(InventoryManagementView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(InventoryManagementView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(InventoryManagementView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//        //</editor-fold>
-//
-//        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new InventoryManagementView().setVisible(true);
-//            }
-//        });
-//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnQuit;
