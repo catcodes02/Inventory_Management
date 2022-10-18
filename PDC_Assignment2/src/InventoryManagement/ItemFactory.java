@@ -2,6 +2,7 @@ package InventoryManagement;
 
 public class ItemFactory {
 
+    //generate item based on category/type
     public Item createItem(String category, String name, int quantity, double price, String other) {
         Item item;
 

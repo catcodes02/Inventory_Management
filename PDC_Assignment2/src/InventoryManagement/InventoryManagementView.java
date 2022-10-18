@@ -19,6 +19,7 @@ public class InventoryManagementView extends javax.swing.JFrame {
         });
     }
 
+    //Initialise and display JFrame (GUI)
     public void startGUI() {
         //initialisation of form & components
         initComponents();
@@ -36,16 +37,19 @@ public class InventoryManagementView extends javax.swing.JFrame {
         this.setVisible(true);
     }
 
+    //set connection to programme controller
     public void setController(InventoryManagementController controller) {
         this.controller = controller;
     }
 
+    //set connection to child JPanels
     public void setPanelGUIs() {
         pnlFoodItem.setGUI(this);
         pnlCosmeticItem.setGUI(this);
         pnlCleaningItem.setGUI(this);
     }
 
+    //set component visibilities for the Home location
     public void homeVisibility() {
         controller.changeLocation(InventoryManagementController.Location.HOME);
 
@@ -55,6 +59,7 @@ public class InventoryManagementView extends javax.swing.JFrame {
         lstCategories.clearSelection();
     }
 
+    //set component visibilities for a Category location
     public void categoryVisibility() {
         controller.categories.changeLocationToCategory(controller, lstCategories.getSelectedValue());
         fillInventory();
@@ -65,6 +70,7 @@ public class InventoryManagementView extends javax.swing.JFrame {
         btnReturn.setVisible(true);
     }
 
+    //set visibilities for components of Category JPanel
     public void categoryComponentVisibility() {
         pnlButtons.setVisible(true);
         pnlEditQuantity.setVisible(false);
@@ -74,16 +80,19 @@ public class InventoryManagementView extends javax.swing.JFrame {
         pnlCleaningItem.setVisible(false);
     }
 
+    //set text of Category label to current category
     public void setCategoryLabel(String name) {
         lblInventory.setText(name + " Stock:");
     }
 
+    //fill Category list
     private void fillCategories() {
         for (String category : controller.categories.listOfCategories) {
             categoryListModel.addElement(category);
         }
     }
 
+    //fill Inventory list
     public void fillInventory() {
         inventoryListModel.clear();
         for (String item : controller.getInventory()) {
@@ -91,6 +100,7 @@ public class InventoryManagementView extends javax.swing.JFrame {
         }
     }
 
+    //error checking - item has been selected on list
     private boolean checkItemSelected() {
         boolean itemSelected = false;
 
@@ -103,11 +113,13 @@ public class InventoryManagementView extends javax.swing.JFrame {
         return itemSelected;
     }
 
+    //generate item based off input and send to model via controller
     public void recieveNewItem(String name, int quantity, double price, String other) {
         ItemFactory factory = new ItemFactory();
         controller.add(factory.createItem(controller.categories.getCurrentCategory(controller), name, quantity, price, other));
     }
 
+    //get string of an items information
     public String showItemInfo(String name) {
         return controller.getInfo(name);
     }
@@ -438,7 +450,7 @@ public class InventoryManagementView extends javax.swing.JFrame {
     private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
         if (checkItemSelected()) { //error checking
             int confirm = JOptionPane.showConfirmDialog(null, "Remove " + lstInventory.getSelectedValue(), "CONFIRMATION", JOptionPane.YES_NO_OPTION);
-            if (confirm == 0) {
+            if (confirm == 0) { //yes
                 controller.remove(lstInventory.getSelectedValue());
             }
         }
@@ -448,10 +460,10 @@ public class InventoryManagementView extends javax.swing.JFrame {
         int newQuantity = controller.getQuantity(lstInventory.getSelectedValue()) + (int) spnUpdateQuantity.getValue();
         int confirm = -1;
 
-        if (newQuantity < 0) {
+        if (newQuantity < 0) { //negative resulting quantity
             confirm = JOptionPane.showConfirmDialog(null, "New quantity will be negative. \nIs this okay?", "CONFIRMATION", JOptionPane.YES_NO_OPTION);
         }
-        if ((newQuantity > -1) || (confirm == 0)) {
+        if ((newQuantity > -1) || (confirm == 0)) { //valid input or yes
             controller.updateQuantity(lstInventory.getSelectedValue(), (int) spnUpdateQuantity.getValue());
             JOptionPane.showMessageDialog(null, lstInventory.getSelectedValue() + " now has quantity: " + controller.getQuantity(lstInventory.getSelectedValue()), "QUANTITY CHANGED", JOptionPane.PLAIN_MESSAGE);
         }

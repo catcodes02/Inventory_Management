@@ -15,26 +15,32 @@ public class pnlTemplateItem extends javax.swing.JPanel {
         initComponents();
     }
 
+    //set connection to parent JFrame
     public void setGUI(InventoryManagementView GUI) {
         this.GUI = GUI;
     }
 
+    //get name input
     public String getName() {
         return txtName.getText().trim();
     }
 
+    //get quantity input
     public int getQuantity() {
         return (int) spnQuantity.getValue();
     }
 
+    //get price input
     public Double getPrice() {
         return Double.parseDouble(txtPrice.getText());
     }
 
+    //get extra input
     public String getOther() {
         return txtOther.getText();
     }
 
+    //remove previously entered input
     private void clearInput() {
         txtName.setText("");
         spnQuantity.setValue(0);
@@ -42,30 +48,31 @@ public class pnlTemplateItem extends javax.swing.JPanel {
         txtOther.setText("");
     }
 
+    //check all input is valid
     private boolean validateInput() {
         boolean valid = false;
 
         //validate name
-        if (txtName.getText().trim().equals("")) {
+        if (txtName.getText().trim().equals("")) { //blank name
             JOptionPane.showMessageDialog(null, "Missing item name!", "ERROR", JOptionPane.ERROR_MESSAGE);
         } else {
 
             //validate quantity
             int Quantity = (int) spnQuantity.getValue();
             int confirm = -1;
-            if (Quantity < 0) {
+            if (Quantity < 0) { //negative quantity
                 confirm = JOptionPane.showConfirmDialog(null, "Quantity will be negative. \nIs this okay?", "CONFIRMATION", JOptionPane.YES_NO_OPTION);
             }
 
             //validate price
-            if ((Quantity > -1) || (confirm == 0)) {
+            if ((Quantity > -1) || (confirm == 0)) { //valid input or yes
                 double price = -1;
                 try {
                     price = Double.parseDouble(txtPrice.getText());
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(null, "Price must be a number!", "ERROR", JOptionPane.ERROR_MESSAGE);
                 }
-                if (price <= 0) {
+                if (price <= 0) { //negative price
                     JOptionPane.showMessageDialog(null, "Price cannot be negative or zero.", "ERROR", JOptionPane.ERROR_MESSAGE);
 
                 } else { //input is valid

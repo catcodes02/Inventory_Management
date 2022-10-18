@@ -14,17 +14,12 @@ public class InventoryManagementModel {
     private static InventoryManagementModel instance;
     private DBTables exampleTables;
 
-    private static final String USER_NAME = "pdc"; //your DB username
-    private static final String PASSWORD = "pdc"; //your DB password
+    private static final String USER_NAME = "pdc"; //DB username
+    private static final String PASSWORD = "pdc"; //DB password
     private static final String URL = "jdbc:derby:InventoryManagement_EDB;create=true"; //url of the DB host
 
     Connection conn;
     private Statement statement;
-
-    private InventoryManagementModel() {
-        //connect to db
-        this.establishConnection();
-    }
 
     //singleton pattern
     public static InventoryManagementModel getInstance() {
@@ -34,13 +29,17 @@ public class InventoryManagementModel {
         return instance;
     }
 
+    private InventoryManagementModel() {
+        //connect to db
+        this.establishConnection();
+    }
+
     public Connection getConnection() {
         return this.conn;
     }
 
-    //Establish connection
+    //establish connection to DB
     public void establishConnection() {
-        //Establish a connection to Database
         try {
             conn = DriverManager.getConnection(URL, USER_NAME, PASSWORD);
             System.out.println(URL + " connected...");
@@ -49,6 +48,7 @@ public class InventoryManagementModel {
         }
     }
 
+    //close connection to DB
     public void closeConnections() {
         if (conn != null) {
             try {
@@ -67,6 +67,7 @@ public class InventoryManagementModel {
     }
 
 //reading
+    //get every instance in the Item_Name column from a table
     public String[] getItemNames(String table) {
         ArrayList<String> itemNames = new ArrayList();
 
@@ -87,6 +88,7 @@ public class InventoryManagementModel {
         return itemNames.toArray(returnArray);
     }
 
+    //get a value from the Quantity column and a row based on the Item_Name
     public int getItemQuantity(String table, String itemName) {
         int quantity = 0;
 
@@ -104,6 +106,8 @@ public class InventoryManagementModel {
         return quantity;
     }
 
+    //get all the information from a row based on the Item_Name
+    //use information to generate an item
     public Item getItem(String table, String itemName) {
         Item item = null;
 
@@ -123,6 +127,8 @@ public class InventoryManagementModel {
         return item;
     }
 
+    //get all the information from every row of the table
+    //use information from each row to generate an item and add to array of items
     public Item[] getTable(String table) {
         String[] itemNames = this.getItemNames(table);
         Item[] items = new Item[itemNames.length];
@@ -135,6 +141,7 @@ public class InventoryManagementModel {
     }
 
 //writting
+    //edit a value from the Quantity column and a row based on the Item_Name
     public void updateItemQuantity(String table, String itemName, int amount) {
         try {
             this.statement = conn.createStatement();
@@ -149,6 +156,7 @@ public class InventoryManagementModel {
         }
     }
 
+    //insert a new row with values from a given item
     public void addItem(String table, Item item) {
         try {
             this.statement = conn.createStatement();
@@ -159,6 +167,7 @@ public class InventoryManagementModel {
         }
     }
 
+    //remove a row based on the Item_Name
     public void removeItem(String table, String itemName) {
         try {
             this.statement = conn.createStatement();

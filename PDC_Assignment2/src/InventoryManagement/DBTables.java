@@ -24,6 +24,7 @@ public class DBTables {
         }
     }
 
+    //create example tables
     public void createTables() {
         //food items table
         foodTable();
@@ -100,6 +101,7 @@ public class DBTables {
         }
     }
 
+    //checks if table by 'name' already exists in the DB
     private boolean checkTableExists(String name) {
         boolean result = false;
 

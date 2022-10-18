@@ -8,6 +8,7 @@ public class InventoryManagementController {
 
     public Location currentLocation = Location.NONE;
 
+//constructors
     public InventoryManagementController() {
         this.model = InventoryManagementModel.getInstance();
         this.view = new InventoryManagementView();
@@ -20,6 +21,7 @@ public class InventoryManagementController {
         this.categories = new Categories();
     }
 
+    //setup the model and the view
     public void startProgram() {
         //create example tables
         this.model.createExampleTables();
@@ -29,12 +31,14 @@ public class InventoryManagementController {
         this.view.startGUI();
     }
 
+    //close model connection and stop view display
     public void endProgram() {
         this.changeLocation(Location.NONE);
         model.closeConnections();
         view.dispose();
     }
 
+    //update location enum variable based on view
     public void changeLocation(Location location) {
         this.currentLocation = location;
     }
@@ -71,7 +75,7 @@ public class InventoryManagementController {
         this.view.fillInventory();
     }
 
-//enum describes current page state
+//enum describes current view state and model table
     public enum Location {
         NONE, HOME,
         //add categories here

@@ -6,6 +6,7 @@ public class Categories {
     public final String[] listOfCategories
             = {"Food", "Cleaning Supplies", "Cosmetics"};
 
+    //return string based on controllers current location enum variable
     public String getCurrentCategory(InventoryManagementController controller) {
         String category = "unknown";
 
@@ -27,6 +28,7 @@ public class Categories {
         return category;
     }
 
+    //change controllers location enum variable to a given category
     public void changeLocationToCategory(InventoryManagementController controller, String category) {
         switch (category) {
             case "Food":
@@ -44,6 +46,7 @@ public class Categories {
         }
     }
 
+    //get string of item information based on the current location category
     public String getItemInfo(InventoryManagementController controller, Item item) {
         String returnString
                 = "Name: " + item.getName()
