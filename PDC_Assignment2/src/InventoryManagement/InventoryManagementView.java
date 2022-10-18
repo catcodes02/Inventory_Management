@@ -113,6 +113,18 @@ public class InventoryManagementView extends javax.swing.JFrame {
         return itemSelected;
     }
 
+    public boolean checkItemExists(String name) {
+        boolean result = false;
+
+        for (int i = 0; i < controller.getInventory().length; i++) {
+            if (controller.getInventory()[i].toUpperCase().equals(name.toUpperCase())) {
+                result = true;
+            }
+        }
+
+        return result;
+    }
+
     //generate item based off input and send to model via controller
     public void recieveNewItem(String name, int quantity, double price, String other) {
         ItemFactory factory = new ItemFactory();
@@ -410,6 +422,11 @@ public class InventoryManagementView extends javax.swing.JFrame {
 
     private void btnReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnActionPerformed
         homeVisibility();
+
+        //make sure any previous input is cleared
+        pnlFoodItem.clearInput();
+        pnlCosmeticItem.clearInput();
+        pnlCleaningItem.clearInput();
     }//GEN-LAST:event_btnReturnActionPerformed
 
     private void lstCategoriesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstCategoriesMouseClicked

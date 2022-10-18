@@ -37,7 +37,7 @@ public class pnlCleaningItem extends javax.swing.JPanel {
     }
 
     //remove previously entered input
-    private void clearInput() {
+    public void clearInput() {
         txtName.setText("");
         spnQuantity.setValue(0);
         txtPrice.setText("");
@@ -49,7 +49,9 @@ public class pnlCleaningItem extends javax.swing.JPanel {
         boolean valid = false;
 
         //validate name
-        if (txtName.getText().trim().equals("")) { //blank name
+        if (GUI.checkItemExists(getName())) { //name already assigned to item
+            JOptionPane.showMessageDialog(null, "Item already exists by that name.", "ERROR", JOptionPane.ERROR_MESSAGE);
+        } else if (getName().equals("")) { //blank name
             JOptionPane.showMessageDialog(null, "Missing item name!", "ERROR", JOptionPane.ERROR_MESSAGE);
 
             //validate usage
@@ -58,7 +60,7 @@ public class pnlCleaningItem extends javax.swing.JPanel {
         } else {
 
             //validate quantity
-            int Quantity = (int) spnQuantity.getValue();
+            int Quantity = getQuantity();
             int confirm = -1;
             if (Quantity < 0) { //negative quantity
                 confirm = JOptionPane.showConfirmDialog(null, "Quantity will be negative. \nIs this okay?", "CONFIRMATION", JOptionPane.YES_NO_OPTION);
