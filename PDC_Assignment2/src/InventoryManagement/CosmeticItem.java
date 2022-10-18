@@ -16,6 +16,7 @@ public class CosmeticItem extends Item {
     }
 
 //getters & setters
+    @Override
     public String getApplication() {
         return this.application;
     }

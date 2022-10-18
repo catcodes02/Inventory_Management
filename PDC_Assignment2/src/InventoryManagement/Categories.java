@@ -8,7 +8,7 @@ public class Categories {
 
     public String getCurrentCategory(InventoryManagementController controller) {
         String category = "unknown";
-        
+
         switch (controller.currentLocation) {
             case CATEGORY_FOOD:
                 category = "FOOD";
@@ -23,7 +23,7 @@ public class Categories {
                 System.out.println("category unavailable");
                 break;
         }
-        
+
         return category;
     }
 
@@ -42,5 +42,29 @@ public class Categories {
                 controller.changeLocation(InventoryManagementController.Location.NONE);
                 break;
         }
+    }
+
+    public String getItemInfo(InventoryManagementController controller, Item item) {
+        String returnString
+                = "Name: " + item.getName()
+                + "\nQuantity: " + item.getQuantity()
+                + "\nPrice: $" + item.getPrice();
+
+        switch (controller.currentLocation) {
+            case CATEGORY_FOOD:
+                returnString += "\nShelf Life: " + item.getShelfLife() + " days";
+                break;
+            case CATEGORY_COSMETIC:
+                returnString += "\nApplication: " + item.getApplication();
+                break;
+            case CATEGORY_CLEANING:
+                returnString += "\nUsage: " + item.getUsage()
+                        + "\n\nWarnings:\n" + item.getWarning();
+                break;
+            default:
+                System.out.println("ERROR: item type not found");
+                break;
+        }
+        return returnString;
     }
 }

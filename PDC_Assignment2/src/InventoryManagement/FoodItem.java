@@ -18,6 +18,7 @@ public class FoodItem extends Item {
     }
 
 //getters & setters
+    @Override
     public int getShelfLife() {
         return this.shelfLife;
     }

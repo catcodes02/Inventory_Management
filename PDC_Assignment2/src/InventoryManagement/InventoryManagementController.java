@@ -50,6 +50,11 @@ public class InventoryManagementController {
         return model.getItemQuantity(categories.getCurrentCategory(this), name);
     }
 
+    //get String of item information
+    public String getInfo(String name) {
+        return categories.getItemInfo(this, model.getItem(categories.getCurrentCategory(this), name));
+    }
+
     //add item to table
     public void add(Item newItem) {
         this.model.addItem(categories.getCurrentCategory(this), newItem);

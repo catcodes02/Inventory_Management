@@ -60,6 +60,22 @@ public abstract class Item {
     public void setApplication(String bodyPart) {
     }
 
+    public int getShelfLife() {
+        return -1;
+    }
+
+    public String getUsage() {
+        return "";
+    }
+
+    public String getWarning() {
+        return "";
+    }
+
+    public String getApplication() {
+        return "";
+    }
+
     public String getSQLString() {
         return "";
     }

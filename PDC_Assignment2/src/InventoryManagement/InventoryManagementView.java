@@ -108,6 +108,10 @@ public class InventoryManagementView extends javax.swing.JFrame {
         controller.add(factory.createItem(controller.categories.getCurrentCategory(controller), name, quantity, price, other));
     }
 
+    public String showItemInfo(String name) {
+        return controller.getInfo(name);
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -129,7 +133,7 @@ public class InventoryManagementView extends javax.swing.JFrame {
         btnQuit = new javax.swing.JButton();
         pnlCategory = new javax.swing.JPanel();
         lblInventory = new javax.swing.JLabel();
-        scrCategories1 = new javax.swing.JScrollPane();
+        scrInventory = new javax.swing.JScrollPane();
         lstInventory = new javax.swing.JList<>();
         pnlButtons = new javax.swing.JPanel();
         btnAdd = new javax.swing.JButton();
@@ -235,14 +239,19 @@ public class InventoryManagementView extends javax.swing.JFrame {
         pnlCategory.add(lblInventory);
         lblInventory.setBounds(10, 20, 380, 30);
 
-        scrCategories1.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        scrInventory.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
 
         lstInventory.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         lstInventory.setModel(this.inventoryListModel);
-        scrCategories1.setViewportView(lstInventory);
+        lstInventory.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lstInventoryMouseClicked(evt);
+            }
+        });
+        scrInventory.setViewportView(lstInventory);
 
-        pnlCategory.add(scrCategories1);
-        scrCategories1.setBounds(10, 60, 180, 180);
+        pnlCategory.add(scrInventory);
+        scrInventory.setBounds(10, 60, 180, 180);
 
         pnlButtons.setBackground(new java.awt.Color(175, 199, 249));
 
@@ -454,6 +463,10 @@ public class InventoryManagementView extends javax.swing.JFrame {
         categoryVisibility();
     }//GEN-LAST:event_btnCancelQuantityActionPerformed
 
+    private void lstInventoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstInventoryMouseClicked
+        JOptionPane.showMessageDialog(null, showItemInfo(lstInventory.getSelectedValue()), lstInventory.getSelectedValue().toUpperCase() + " INFO", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_lstInventoryMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
@@ -479,7 +492,7 @@ public class InventoryManagementView extends javax.swing.JFrame {
     private javax.swing.JPanel pnlHome;
     private javax.swing.JPanel pnlTitle;
     private javax.swing.JScrollPane scrCategories;
-    private javax.swing.JScrollPane scrCategories1;
+    private javax.swing.JScrollPane scrInventory;
     private javax.swing.JSpinner spnUpdateQuantity;
     // End of variables declaration//GEN-END:variables
 }
