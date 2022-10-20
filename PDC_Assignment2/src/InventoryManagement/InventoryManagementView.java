@@ -110,6 +110,7 @@ public class InventoryManagementView extends javax.swing.JFrame {
         return itemSelected;
     }
 
+    //check if an item already exists in the table of current category
     public boolean checkItemExists(String name) {
         boolean result = false;
 

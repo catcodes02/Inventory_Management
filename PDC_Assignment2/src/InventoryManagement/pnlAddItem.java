@@ -16,6 +16,7 @@ public class pnlAddItem extends javax.swing.JPanel {
         this.GUI = GUI;
     }
 
+    //set visibility of input fields based on category
     public void setInputVisibility(String category) {
         switch (category) {
             case "food": //Food item
@@ -116,6 +117,7 @@ public class pnlAddItem extends javax.swing.JPanel {
         return valid;
     }
 
+    //validation of extra input field
     private boolean validationBaseOnCategory() {
         boolean valid = true;
 
@@ -142,6 +144,7 @@ public class pnlAddItem extends javax.swing.JPanel {
         return valid;
     }
 
+    //send input to be added to model
     private void sendInput() {
         String otherInput = "";
 
