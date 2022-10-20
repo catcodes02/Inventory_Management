@@ -44,9 +44,7 @@ public class InventoryManagementView extends javax.swing.JFrame {
 
     //set connection to child JPanels
     public void setPanelGUIs() {
-        pnlFoodItem.setGUI(this);
-        pnlCosmeticItem.setGUI(this);
-        pnlCleaningItem.setGUI(this);
+        pnlAddItem.setGUI(this);
     }
 
     //set component visibilities for the Home location
@@ -75,9 +73,8 @@ public class InventoryManagementView extends javax.swing.JFrame {
         pnlButtons.setVisible(true);
         pnlEditQuantity.setVisible(false);
         spnUpdateQuantity.setValue(0);
-        pnlFoodItem.setVisible(false);
-        pnlCosmeticItem.setVisible(false);
-        pnlCleaningItem.setVisible(false);
+        pnlAddItem.setVisible(false);
+        pnlAddItem.clearInput();
     }
 
     //set text of Category label to current category
@@ -167,9 +164,7 @@ public class InventoryManagementView extends javax.swing.JFrame {
         spnUpdateQuantity = new javax.swing.JSpinner();
         btnConfirmQuantity = new javax.swing.JButton();
         btnCancelQuantity = new javax.swing.JButton();
-        pnlFoodItem = new InventoryManagement.pnlFoodItem();
-        pnlCosmeticItem = new InventoryManagement.pnlCosmeticItem();
-        pnlCleaningItem = new InventoryManagement.pnlCleaningItem();
+        pnlAddItem = new InventoryManagement.pnlAddItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Inventory Management");
@@ -407,12 +402,8 @@ public class InventoryManagementView extends javax.swing.JFrame {
 
         pnlCategory.add(pnlEditQuantity);
         pnlEditQuantity.setBounds(190, 60, 210, 180);
-        pnlCategory.add(pnlFoodItem);
-        pnlFoodItem.setBounds(190, 60, 210, 180);
-        pnlCategory.add(pnlCosmeticItem);
-        pnlCosmeticItem.setBounds(190, 60, 210, 180);
-        pnlCategory.add(pnlCleaningItem);
-        pnlCleaningItem.setBounds(190, 60, 210, 180);
+        pnlCategory.add(pnlAddItem);
+        pnlAddItem.setBounds(190, 60, 210, 180);
 
         getContentPane().add(pnlCategory);
         pnlCategory.setBounds(0, 80, 400, 270);
@@ -424,9 +415,7 @@ public class InventoryManagementView extends javax.swing.JFrame {
         homeVisibility();
 
         //make sure any previous input is cleared
-        pnlFoodItem.clearInput();
-        pnlCosmeticItem.clearInput();
-        pnlCleaningItem.clearInput();
+        pnlAddItem.clearInput();
     }//GEN-LAST:event_btnReturnActionPerformed
 
     private void lstCategoriesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstCategoriesMouseClicked
@@ -441,20 +430,21 @@ public class InventoryManagementView extends javax.swing.JFrame {
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         pnlButtons.setVisible(false);
 
-        //only show add panel of current category
+        //only show add input fields of current category
         switch (controller.currentLocation) {
             case CATEGORY_FOOD:
-                pnlFoodItem.setVisible(true);
+                pnlAddItem.setInputVisibility("food");
                 break;
             case CATEGORY_COSMETIC:
-                pnlCosmeticItem.setVisible(true);
+                pnlAddItem.setInputVisibility("cosmetic");
                 break;
             case CATEGORY_CLEANING:
-                pnlCleaningItem.setVisible(true);
+                pnlAddItem.setInputVisibility("cleaning");
                 break;
             default:
                 break;
         }
+        pnlAddItem.setVisible(true);
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnEditQuantityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditQuantityActionPerformed
@@ -512,12 +502,10 @@ public class InventoryManagementView extends javax.swing.JFrame {
     private javax.swing.JLabel lblTitle3;
     private javax.swing.JList<String> lstCategories;
     private javax.swing.JList<String> lstInventory;
+    private InventoryManagement.pnlAddItem pnlAddItem;
     private javax.swing.JPanel pnlButtons;
     private javax.swing.JPanel pnlCategory;
-    private InventoryManagement.pnlCleaningItem pnlCleaningItem;
-    private InventoryManagement.pnlCosmeticItem pnlCosmeticItem;
     private javax.swing.JPanel pnlEditQuantity;
-    private InventoryManagement.pnlFoodItem pnlFoodItem;
     private javax.swing.JPanel pnlHome;
     private javax.swing.JPanel pnlTitle;
     private javax.swing.JScrollPane scrCategories;

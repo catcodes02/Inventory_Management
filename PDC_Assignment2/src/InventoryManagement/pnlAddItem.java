@@ -1,16 +1,12 @@
-/*
- * Add item panel template
- * copy template and adjust to item specifications
- */
 package InventoryManagement;
 
 import javax.swing.JOptionPane;
 
-public class pnlTemplateItem extends javax.swing.JPanel {
+public class pnlAddItem extends javax.swing.JPanel {
 
     InventoryManagementView GUI;
 
-    public pnlTemplateItem() {
+    public pnlAddItem() {
         //initialisation of form & components
         initComponents();
     }
@@ -18,6 +14,23 @@ public class pnlTemplateItem extends javax.swing.JPanel {
     //set connection to parent JFrame
     public void setGUI(InventoryManagementView GUI) {
         this.GUI = GUI;
+    }
+
+    public void setInputVisibility(String category) {
+        switch (category) {
+            case "food": //Food item
+                lblOther.setText("Shelf Life: ");
+                spnShelfLife.setVisible(true);
+                break;
+            case "cleaning": //Cleaning item
+                lblOther.setText("Usage: ");
+                txtUsage.setVisible(true);
+                break;
+            case "cosmetic": //Cosmetic item
+                lblOther.setText("Application: ");
+                txtApplication.setVisible(true);
+                break;
+        }
     }
 
     //get name input
@@ -36,8 +49,19 @@ public class pnlTemplateItem extends javax.swing.JPanel {
     }
 
     //get extra input
-    public String getOther() {
-        return txtOther.getText();
+    //get shelf life input
+    public String getShelfLife() {
+        return spnShelfLife.getValue().toString();
+    }
+
+    //get usage input
+    public String getUsage() {
+        return txtUsage.getText().trim();
+    }
+
+    //get application input
+    public String getApplication() {
+        return txtApplication.getText().trim();
     }
 
     //remove previously entered input
@@ -45,7 +69,14 @@ public class pnlTemplateItem extends javax.swing.JPanel {
         txtName.setText("");
         spnQuantity.setValue(0);
         txtPrice.setText("");
-        txtOther.setText("");
+
+        spnShelfLife.setValue(0);
+        txtUsage.setText("");
+        txtApplication.setText("");
+
+        spnShelfLife.setVisible(false);
+        txtUsage.setVisible(false);
+        txtApplication.setVisible(false);
     }
 
     //check all input is valid
@@ -57,7 +88,7 @@ public class pnlTemplateItem extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Item already exists by that name.", "ERROR", JOptionPane.ERROR_MESSAGE);
         } else if (getName().equals("")) { //blank name
             JOptionPane.showMessageDialog(null, "Missing item name!", "ERROR", JOptionPane.ERROR_MESSAGE);
-        } else {
+        } else if (validationBaseOnCategory()) {
 
             //validate quantity
             int Quantity = getQuantity();
@@ -85,6 +116,50 @@ public class pnlTemplateItem extends javax.swing.JPanel {
         return valid;
     }
 
+    private boolean validationBaseOnCategory() {
+        boolean valid = true;
+
+        switch (lblOther.getText()) {
+            case "Shelf Life: ": //Food item
+                //no extra validation needed
+                break;
+            case "Usage: ": //Cleaning item
+                //validate usage
+                if (txtUsage.getText().trim().equals("")) { //blank usage
+                    valid = false;
+                    JOptionPane.showMessageDialog(null, "Missing item usage!", "ERROR", JOptionPane.ERROR_MESSAGE);
+                }
+                break;
+            case "Application: ": //Cosmetic item
+                //validate application
+                if (txtApplication.getText().trim().equals("")) { //blank application
+                    valid = false;
+                    JOptionPane.showMessageDialog(null, "Missing item application!", "ERROR", JOptionPane.ERROR_MESSAGE);
+                }
+                break;
+        }
+
+        return valid;
+    }
+
+    private void sendInput() {
+        String otherInput = "";
+
+        switch (lblOther.getText()) {
+            case "Shelf Life: ": //Food item
+                otherInput = getShelfLife();
+                break;
+            case "Usage: ": //Cleaning item
+                otherInput = getUsage();
+                break;
+            case "Application: ": //Cosmetic item
+                otherInput = getApplication();
+                break;
+        }
+
+        GUI.recieveNewItem(getName(), getQuantity(), getPrice(), otherInput);
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -99,11 +174,13 @@ public class pnlTemplateItem extends javax.swing.JPanel {
         spnQuantity = new javax.swing.JSpinner();
         btnConfirmAdd = new javax.swing.JButton();
         btnCancelAdd = new javax.swing.JButton();
-        txtOther = new javax.swing.JTextField();
         lblName = new javax.swing.JLabel();
         lblQuantity = new javax.swing.JLabel();
         lblPrice = new javax.swing.JLabel();
         lblOther = new javax.swing.JLabel();
+        spnShelfLife = new javax.swing.JSpinner();
+        txtUsage = new javax.swing.JTextField();
+        txtApplication = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(175, 199, 249));
         setMinimumSize(new java.awt.Dimension(210, 180));
@@ -157,13 +234,6 @@ public class pnlTemplateItem extends javax.swing.JPanel {
         add(btnCancelAdd);
         btnCancelAdd.setBounds(110, 150, 90, 23);
 
-        txtOther.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        txtOther.setToolTipText("...");
-        txtOther.setMinimumSize(new java.awt.Dimension(30, 24));
-        txtOther.setPreferredSize(new java.awt.Dimension(30, 24));
-        add(txtOther);
-        txtOther.setBounds(100, 100, 100, 24);
-
         lblName.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         lblName.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblName.setText("Name: ");
@@ -195,11 +265,31 @@ public class pnlTemplateItem extends javax.swing.JPanel {
         lblOther.setPreferredSize(new java.awt.Dimension(30, 24));
         add(lblOther);
         lblOther.setBounds(10, 100, 80, 20);
+
+        spnShelfLife.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        spnShelfLife.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+        spnShelfLife.setToolTipText("(days)");
+        add(spnShelfLife);
+        spnShelfLife.setBounds(100, 100, 100, 24);
+
+        txtUsage.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        txtUsage.setToolTipText("e.g. Windows");
+        txtUsage.setMinimumSize(new java.awt.Dimension(30, 24));
+        txtUsage.setPreferredSize(new java.awt.Dimension(30, 24));
+        add(txtUsage);
+        txtUsage.setBounds(100, 100, 100, 24);
+
+        txtApplication.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        txtApplication.setToolTipText("e.g. Lips");
+        txtApplication.setMinimumSize(new java.awt.Dimension(30, 24));
+        txtApplication.setPreferredSize(new java.awt.Dimension(30, 24));
+        add(txtApplication);
+        txtApplication.setBounds(100, 100, 100, 24);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnConfirmAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmAddActionPerformed
         if (validateInput()) {
-            GUI.recieveNewItem(txtName.getText(), (int) spnQuantity.getValue(), Double.parseDouble(txtPrice.getText()), txtOther.getText());
+            sendInput();
             clearInput();
             GUI.categoryVisibility();
         }
@@ -219,8 +309,10 @@ public class pnlTemplateItem extends javax.swing.JPanel {
     private javax.swing.JLabel lblPrice;
     private javax.swing.JLabel lblQuantity;
     private javax.swing.JSpinner spnQuantity;
+    private javax.swing.JSpinner spnShelfLife;
+    private javax.swing.JTextField txtApplication;
     private javax.swing.JTextField txtName;
-    private javax.swing.JTextField txtOther;
     private javax.swing.JTextField txtPrice;
+    private javax.swing.JTextField txtUsage;
     // End of variables declaration//GEN-END:variables
 }
