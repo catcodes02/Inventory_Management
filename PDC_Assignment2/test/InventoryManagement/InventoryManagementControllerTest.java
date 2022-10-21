@@ -29,6 +29,9 @@ public class InventoryManagementControllerTest {
 
     @After
     public void tearDown() {
+        //endProgram()
+        instance.model.closeConnections();
+//        controllerInstance.view.dispose();
     }
 
     /**

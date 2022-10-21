@@ -34,6 +34,9 @@ public class CategoriesTest {
 
     @After
     public void tearDown() {
+        //controllerInstance.endProgram()
+        controllerInstance.model.closeConnections();
+//        controllerInstance.view.dispose();
     }
 
     /**
@@ -57,23 +60,23 @@ public class CategoriesTest {
     public void testChangeLocationToCategory1() {
         System.out.println("changeLocationToCategory");
 
-        //unavailable category (Pets)
-        instance.changeLocationToCategory(controllerInstance, "Pets");
+        instance.changeLocationToCategory(controllerInstance, "Food");
 
         String currentCategory = instance.getCurrentCategory(controllerInstance);
-        String expectedCategory = "unknown";
+        String expectedCategory = "FOOD";
 
         assertEquals(currentCategory, expectedCategory);
     }
 
     @Test
     public void testChangeLocationToCategory2() {
-        System.out.println("changeLocationToCategory");
+        System.out.println("changeLocationToCategory -> Unavailable Category");
 
-        instance.changeLocationToCategory(controllerInstance, "Food");
+        //unavailable category (Pets)
+        instance.changeLocationToCategory(controllerInstance, "Pets");
 
         String currentCategory = instance.getCurrentCategory(controllerInstance);
-        String expectedCategory = "FOOD";
+        String expectedCategory = "unknown";
 
         assertEquals(currentCategory, expectedCategory);
     }
